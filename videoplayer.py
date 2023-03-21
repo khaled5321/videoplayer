@@ -16,6 +16,7 @@ class VideoThread(threading.Thread):
 
     def run(self) -> None:
         player = self.Instance.media_player_new()
+        player.video_set_aspect_ratio('5:3')
         for video in itertools.cycle(self.video_list):
             media = self.Instance.media_new(video)
             player.set_media(media)
