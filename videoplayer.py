@@ -8,7 +8,13 @@ class VideoThread(threading.Thread):
 
     def __init__(self, wid):
         threading.Thread.__init__(self)
-        self.video_list = ['videos\sector_b5.mp4', 'videos\SVC_video.mp4']
+        self.video_list = [
+            # 'videos\sector_b5.mp4',
+            'videos\svc_demo.mp4',
+            'videos\SVC_video.mp4',
+            # r"videos\video.mp4",
+            # r'videos\ed.mp4',
+        ]
         self.Instance = vlc.Instance()
         self.wid = wid
         self.Ended = 6
@@ -16,7 +22,7 @@ class VideoThread(threading.Thread):
 
     def run(self) -> None:
         player = self.Instance.media_player_new()
-        player.video_set_aspect_ratio('5:3')
+        player.video_set_aspect_ratio('16:9')
         for video in itertools.cycle(self.video_list):
             media = self.Instance.media_new(video)
             player.set_media(media)
@@ -29,7 +35,7 @@ class VideoThread(threading.Thread):
                 current_state = player.get_state()
                 if not self._is_running:
                     return
-                time.sleep(2)
+                time.sleep(1)
             # duration = player.get_length() / 1000
             # time.sleep(duration)
         
